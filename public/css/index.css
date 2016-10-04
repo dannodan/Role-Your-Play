@@ -1,0 +1,89 @@
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,300,500,700);
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-family: -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+.draggable {
+	-webkit-app-region: drag;
+}
+
+.not-draggable {
+	-webkit-app-region: no-drag;
+}
+
+.toolbar {
+  -webkit-app-region: drag;
+  background: #3e3e3e;
+	position: absolute;
+	top: 0;
+	left: 0;
+  height: 50px;
+  width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.sidebar {
+	background: #2e2e2e;
+	height: calc(100% - 85px);
+	width: 250px;
+	position: absolute;
+	left: 0;
+	top: 50px;
+	overflow-y: auto;
+}
+
+.content {
+	background: #6e6e6e;
+	height: calc(100% - 85px);
+	width: calc(100% - 250px);
+	position: absolute;
+	right: 0;
+	top: 50px;
+}
+
+.footer {
+	background: #212121;
+	height: 35px;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+.program-title {
+	color: white;
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 20px;
+	align-self: center;
+}
+
+.toolbar-buttons {
+	align-self: center;
+}
+
+/* Box sizing resets*/
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+		background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+		border: 1px solid #2e2e2e;
+    background-color: grey;
+}

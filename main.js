@@ -1,23 +1,25 @@
 const electron = require('electron')
+const {ipcMain} = require('electron')
+var Loki = require('lokijs')
+var Path = require('path')
+
+global.sharedDB = new Loki(Path.resolve(__dirname, './app/database', 'app.db'))
+sharedDB.loadDatabase()
+
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
+
 let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
-
+  mainWindow = new BrowserWindow({width: 1280, height: 720, frame: false})
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`)
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools()
-
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
@@ -51,3 +53,23 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+ipcMain.on('close-main-window', function() {
+  global.sharedDB.saveDatabase();
+  app.quit();
+});
+
+ipcMain.on('maximize-main-window', function(event) {
+  if (mainWindow.isMaximized()) {
+    mainWindow.unmaximize();
+  } else {
+    mainWindow.maximize();
+  }
+})
+
+ipcMain.on('minimize-main-window', function() {
+  mainWindow.minimize();
+})
+
+ipcMain.on('test', function(){
+  console.log('Kekkerino');
+})
